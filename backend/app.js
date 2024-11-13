@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const helmet = require("helmet");
 const paymentRoutes = require("./routes/payment");
 
 const app = express();
@@ -14,6 +15,18 @@ app.use(
     origin: "http://localhost:3000", // Adjust this if your frontend is hosted elsewhere
   })
 );
+
+// Set CSP headers
+app.use(
+    helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "https://sandbox.payhere.lk"],
+        connectSrc: ["'self'", "https://sandbox.payhere.lk"],
+      },
+      reportOnly: true, // Enable this as 'true' initially for testing to ensure there are no security issues.
+    })
+  );
 
 // Set up routes
 app.use("/payment", paymentRoutes);
