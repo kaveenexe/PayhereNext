@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
-const paymentRoutes = require("./routes/payment");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 const app = express();
 
